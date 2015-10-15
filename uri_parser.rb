@@ -12,6 +12,10 @@ begin
     
 	url = URI(link)
 	host = url.host
+	domain = host
+	if domain =~ /(?:[\da-z\-]+\.)?([\da-z\-]+)\.(?:[a-z\.]{2,6})(?:[\/\w \.-]*)*\/?$/i
+		domain = $1
+	end
 	port = url.port
 	path = url.path
 
@@ -21,6 +25,13 @@ begin
 				<icon>icon.png</icon>
 				</item>\n"
 	xml_string += host_xml
+	
+	domain_xml = "\t<item uid=\"#{domain}\" arg=\"#{domain}\">
+				<title>#{domain}</title>
+				<subtitle>Press ENTER to copy Domain: \'#{domain}\' to clipboard</subtitle>
+				<icon>icon.png</icon>
+				</item>\n"
+	xml_string += domain_xml
 
 	port_xml = "\t<item uid=\"#{port}\" arg=\"#{port}\">
 				<title>#{port}</title>
